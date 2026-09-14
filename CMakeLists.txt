@@ -1,4 +1,7 @@
-cmake_minimum_required(VERSION 3.16)
-include($ENV{IDF_PATH}/tools/cmake/project.cmake)
-
-project(FoloToy-AI-Passport)
+idf_component_register(
+    SRCS "main.c"
+         "stopwatch_core.c"
+         "demo_eva_stopwatch.c"
+    INCLUDE_DIRS "."
+    REQUIRES bsp lvgl esp_timer
+)
