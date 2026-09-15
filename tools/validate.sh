@@ -32,6 +32,16 @@ run_static_checks() {
         tests/test_demo_navigation.c main/demo_navigation.c \
         -o "${test_dir}/test_demo_navigation"
     "${test_dir}/test_demo_navigation"
+    "${CC:-cc}" -std=c11 -Wall -Wextra -Werror -Icomponents/bsp/src \
+        tests/test_bsp_display_rounding.c components/bsp/src/bsp_display_rounding.c \
+        -o "${test_dir}/test_bsp_display_rounding"
+    "${test_dir}/test_bsp_display_rounding"
+    "${CC:-cc}" -std=c11 -Wall -Wextra -Werror -Icomponents/bsp/src \
+        tests/test_bsp_es8311_sleep_check.c components/bsp/src/bsp_es8311_sleep_check.c \
+        -o "${test_dir}/test_bsp_es8311_sleep_check"
+    "${test_dir}/test_bsp_es8311_sleep_check"
+    PYTHONDONTWRITEBYTECODE=1 python3 tests/test_deep_sleep_contract.py
+    PYTHONDONTWRITEBYTECODE=1 python3 tests/test_check_repo.py
     PYTHONDONTWRITEBYTECODE=1 python3 tests/test_verify_firmware.py
     rm -rf "${test_dir}"
     echo "Host tests: PASS"
